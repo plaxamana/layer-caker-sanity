@@ -2,6 +2,8 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { POST_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { PortableText } from "next-sanity";
+import { components } from '@/sanity/portableTextComponents';
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 
@@ -20,7 +22,7 @@ export default async function Page({
   }
 
   return (
-    <main className="container mx-auto grid grid-cols-1 gap-6 p-12">
+    <main className="container mx-auto grid grid-cols-1 gap-6 p-12 max-w-5xl">
       {post?.mainImage ? (
         <Image
           className="w-full aspect-[800/300]"
@@ -36,6 +38,11 @@ export default async function Page({
         />
       ) : null}
       <h1 className="text-4xl font-bold text-balance">{post?.title}</h1>
+      {post?.body ? (
+        <div className="prose">
+          <PortableText value={post.body} components={components} />
+        </div>
+      ) : null}
       <hr />
       <Link href="/posts">&larr; Return to index</Link>
     </main>
