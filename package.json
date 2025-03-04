@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "predev": "npm run typegen",
+    "prebuild": "npm run typegen",
+    "typegen": "sanity schema extract --path=./src/sanity/extract.json && sanity typegen generate",
+    "format": "prettier --write \"./**/*.{ts,tsx,css}\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
